@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="2.0" toolsVersion="3084" systemVersion="12C3006" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="fBx-K2-dPJ">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="2083"/>
+    </dependencies>
+    <scenes>
+        <!--Menu View Controller - Joy of Coding-->
+        <scene sceneID="LEw-7E-lbb">
+            <objects>
+                <tableViewController id="vEx-hr-4nu" customClass="MenuViewController" sceneMemberID="viewController">
+                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="singleLineEtched" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="NWU-h9-dgp">
+                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="separatorColor" white="0.75" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <sections/>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Joy of Coding" id="Vja-cL-OSm"/>
+                    <connections>
+                        <segue destination="BTb-qD-2cv" kind="push" id="GjG-Pf-PTw"/>
+                    </connections>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="BRT-PG-VXp" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="308" y="807"/>
+        </scene>
+        <!--Event Detail View Controller-->
+        <scene sceneID="ANL-UA-mJ3">
+            <objects>
+                <viewController storyboardIdentifier="DetailViewController" id="BTb-qD-2cv" customClass="EventDetailViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Vna-43-zSa">
+                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <webView contentMode="scaleToFill" id="Y2w-nD-Eqf">
+                                <rect key="frame" x="8" y="0.0" width="305" height="504"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <dataDetectorType key="dataDetectorTypes" phoneNumber="YES" link="YES" address="YES"/>
+                                <connections>
+                                    <outlet property="delegate" destination="BTb-qD-2cv" id="9Sn-4j-Cdn"/>
+                                </connections>
+                            </webView>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" style="gray" id="Pl0-Ua-ifc">
+                                <rect key="frame" x="150" y="242" width="20" height="20"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </activityIndicatorView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="HhH-3y-yvU"/>
+                    <connections>
+                        <outlet property="activityIndicator" destination="Pl0-Ua-ifc" id="QrI-VB-Toj"/>
+                        <outlet property="content" destination="Y2w-nD-Eqf" id="rXM-1f-9pY"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Rgt-I4-JEs" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="775" y="806"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="1xa-VW-AGx">
+            <objects>
+                <navigationController wantsFullScreenLayout="YES" definesPresentationContext="YES" id="fBx-K2-dPJ" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="IIa-a3-i8y">
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="tintColor" red="0.35686275360000003" green="0.73333334920000004" blue="0.87843143940000001" alpha="1" colorSpace="deviceRGB"/>
+                    </navigationBar>
+                    <toolbar key="toolbar" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i1e-Yk-MJX">
+                        <rect key="frame" x="0.0" y="416" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </toolbar>
+                    <connections>
+                        <segue destination="vEx-hr-4nu" kind="relationship" relationship="rootViewController" id="K96-Ec-TcU"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="icj-r1-6i4" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <customObject id="BPV-0f-RfH" customClass="AppDelegate"/>
+            </objects>
+            <point key="canvasLocation" x="-170" y="807"/>
+        </scene>
+    </scenes>
+    <classes>
+        <class className="AppDelegate" superclassName="UIResponder">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/AppDelegate.h"/>
+            <relationships>
+                <relationship kind="outlet" name="viewController" candidateClass="UITableViewController"/>
+            </relationships>
+        </class>
+        <class className="EventDetailViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/EventDetailViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="activityIndicator" candidateClass="UIActivityIndicatorView"/>
+                <relationship kind="outlet" name="content" candidateClass="UIWebView"/>
+            </relationships>
+        </class>
+        <class className="MenuViewController" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/MenuViewController.h"/>
+        </class>
+    </classes>
+    <simulatedMetricsContainer key="defaultSimulatedMetrics">
+        <simulatedStatusBarMetrics key="statusBar"/>
+        <simulatedOrientationMetrics key="orientation"/>
+        <simulatedScreenMetrics key="destination" type="retina4"/>
+    </simulatedMetricsContainer>
+</document>

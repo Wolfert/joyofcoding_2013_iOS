@@ -1,0 +1,546 @@
+/* Default element styling */
+
+body {
+  margin: 0px;
+  padding: 0px;
+  color: rgb(109, 113, 114);
+
+  background: url(../img/bgnoise.png) repeat top left;
+}
+
+p {
+  font-family: "Arvo";
+  letter-spacing: 0.08em;
+  font-size: 13px;
+}
+
+ul li {
+  font-family: "Arvo";
+  letter-spacing: 0.08em;
+  font-size: 13px;
+}
+
+h1 {
+  color: #444;
+  font-family: "Monda";
+  letter-spacing: 0.08em;
+  font-size: 28px;
+  font-weight: normal;
+  line-height: 28px;
+  margin-top: 0;
+  margin-bottom: 20px;
+}
+
+h2 {
+  color: #555;
+  font-family: "Monda";
+  font-weight: normal;
+  font-size: 20px;
+  line-height: 20px;
+  letter-spacing: 0.08em;
+  margin-top: 20px;
+}
+
+h3 {
+  font-family: "Monda";
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 20px;
+  letter-spacing: 0.08em;
+}
+
+a:link, a:active, a:visited, a:hover {
+  font-family: "Arvo";
+  letter-spacing: 0.08em;
+  font-size: 13px;
+  text-decoration: none;
+  font-weight: bold;
+  color: #444;
+}
+
+a:hover {
+  color: rgb(156, 170, 175);
+}
+
+img {
+  border: 1px solid rgb(156, 170, 175);
+}
+
+iframe, object, embed {
+  border: 1px solid rgb(156, 170, 175);
+}
+
+.container-fluid {
+  padding: 0;
+  padding-top: 20px;
+}
+
+.row-fluid {
+  max-width: 1150px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.span1 {
+  min-height: 1px !important;
+  height: 1px;
+}
+
+.modal {
+  width: 720px;
+  margin-left: -360px;
+}
+
+@media (max-width: 767px) {
+  .modal {
+    width: auto;
+    margin-left: 0;
+  }
+}
+
+.modal-body {
+  text-align: left;
+  padding: 40px;
+}
+
+/* Dividers */
+
+.thickline {
+  height: 3px;
+}
+
+.thinline {
+  height: 1px;
+  max-width: 400px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.littlethinline {
+  height: 1px;
+  max-width: 100px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 30px;
+  margin-bottom: 30px;
+}
+
+.gray {
+  background-color: rgb(109, 113, 114);
+}
+
+.softblue {
+  background-color: rgb(156, 170, 175);
+}
+
+.divider {
+  text-align: center;
+}
+
+.divider p {
+  font-size: 24px;
+  margin: 0;
+}
+
+/* Banner */
+
+.banner {
+  background: url(../img/navy_blue.png) repeat top left;
+  text-align: center;
+  padding: 40px;
+}
+
+.banner img {
+  border: none;
+  width: 400px;
+}
+
+@media (max-width: 767px) {
+  .banner img {
+    margin-top: 100px;
+  }
+}
+
+.banner .ticket {
+  position: absolute;
+  top: 70px;
+  left: 0;
+}
+
+.banner .ticket a {
+  color: rgb(231, 227, 219);
+}
+
+.banner .ticket a:hover {
+  color: #444;
+}
+
+.banner .ticket .text {
+  text-align: left;
+  float: left;
+  padding: 0 20px;
+  height: 60px;
+  background-color: rgb(235, 156, 77);
+}
+
+.banner .ticket .text p {
+  font-family: "Monda";
+  font-size: 18px;
+  line-height: 18px;
+  letter-spacing: 0.1em;
+  margin-bottom: 5px;
+  font-weight: normal;
+}
+
+.banner .ticket .text p.buy {
+  margin-top: 10px;
+}
+
+.banner .ticket .text p.deadline {
+  font-size: 12px;
+}
+
+.banner .ticket .arrow {
+  width: 0;
+	height: 0;
+	float: left;
+  border-top: 30px solid transparent;
+  border-bottom: 30px solid transparent;
+  border-left: 30px solid rgb(235, 156, 77);
+}
+
+/* Information */
+
+.information {
+  color: #444;
+  text-align: center;
+  padding: 40px 40px 0 40px;
+}
+
+.information p {
+  font-family: "Monda";
+  font-size: 16px;
+  line-height: 16px;
+}
+
+.information .whenwhere i.icon-pushpin {
+  padding-right: 10px;
+}
+
+.information .whenwhere i.icon-calendar {
+  padding-right: 13px;
+}
+
+.information .oneliner p {
+  font-size: 20px;
+  line-height: 26px;
+}
+
+.information .followus a {
+  font-size: 30px;
+  line-height: 30px;
+}
+
+.information .followus i.icon-twitter, i.icon-facebook {
+  padding-left: 10px;
+}
+
+.information .followus i.icon-ok {
+  -moz-transform: matrix(-1, 0, 0, 1, 0, 0);
+  -webkit-transform: matrix(-1, 0, 0, 1, 0, 0);
+  -o-transform:matrix(-1, 0, 0, 1, 0, 0);
+}
+
+/* Conference teaser */
+
+.teaser {
+  padding: 20px 50px;
+  padding-top: 40px;
+}
+
+.teaser .icon {
+  float: left;
+  padding-top: 30px;
+}
+
+.teaser i {
+  font-size: 70px;
+  font-weight: normal;
+}
+
+.teaser i.cometo {
+  color: rgb(174, 94, 114);
+}
+
+.teaser i.affordable {
+  color: rgb(98, 135, 159);
+}
+
+.teaser i.developers {
+  color: rgb(156, 169, 88);
+}
+
+.teaser p {
+  padding-left: 90px;
+  margin-bottom: 20px;
+}
+
+.teaser h2 {
+  padding-left: 90px;
+  margin-top: 0;
+}
+
+/* Speakers */
+
+.speakers {
+  padding: 40px;
+  text-align: center;
+}
+
+.speakers img {
+  margin-top: 20px;
+}
+
+.speakers .read-more a {
+  display: block;
+  padding-top: 10px;
+}
+
+.speakers .read-less a {
+  display: block;
+  padding-top: 10px;
+}
+
+.speakers .michael {
+  text-align: right;
+}
+
+.speakers .chad {
+  text-align: left;
+}
+
+/* Program */
+
+.program {
+  padding: 40px;
+  text-align: center;
+}
+
+@media (max-width: 767px) {
+  .program .header {
+    display: none;
+  }
+}
+
+.program .slots {
+  overflow: hidden;
+  padding: 0;
+}
+
+@media (max-width: 767px) {
+  .program .slots {
+    overflow: visible;
+  }
+}
+
+.program .slots .slot {
+  padding: 10px 20px;
+  margin-top: 10px;
+  margin-bottom: -99999px;
+  padding-bottom: 99999px;
+}
+
+@media (max-width: 767px) {
+  .program .slots .slot {
+    margin-bottom: 0px;
+    padding-bottom: 10px;
+    padding-left: 80px;
+  }
+}
+
+.program .slots .presentation {
+  background-color: rgba(174, 94, 114, 0.1);
+}
+
+.program .slots .workshop {
+  background-color: rgba(98, 135, 159, 0.1);
+}
+
+.program .slots .continued {
+  margin-top: 0;
+}
+
+@media (max-width: 767px) {
+  .program .slots .continued {
+    display: none;
+  }
+}
+
+.program .slots .plenary {
+  background-color: rgba(156, 169, 88, 0.1);
+}
+
+.program .slots p.time {
+  color: #555;
+  font-family: "Monda";
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 20px;
+  letter-spacing: 0.08em;
+
+  margin-top: 20px;
+}
+
+@media (max-width: 767px) {
+  .program .slots p.time {
+    position: absolute;
+    margin-left: 10px;
+  }
+}
+
+.program .slots p.title {
+  color: #555;
+  font-family: "Monda";
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 20px;
+  letter-spacing: 0.08em;
+}
+
+/* Session detais */
+
+.sessiondetails h1 {
+  line-height: 36px;
+}
+
+.sessiondetails .speaker img {
+  width: 100px;
+  float: left;
+  margin-top: 3px;
+  margin-right: 20px;
+  margin-bottom: 20px;
+}
+
+.sessiondetails .speaker h3 {
+  margin-top: 25px;
+}
+
+.sessiondetails .fancybox-inner {
+  padding-right: 20px;
+}
+
+/* Venue */
+
+.venue {
+  padding: 40px;
+  text-align: center;
+}
+
+.venue iframe {
+  margin-top: 20px;
+}
+
+.venue img {
+  margin-top: 20px;
+}
+
+.venue .maassilo {
+  text-align: left;
+}
+
+.venue .hotel {
+  margin-top: 35px;
+  min-height: 190px;
+  text-align: left;
+}
+
+.venue .hotel img {
+  margin-top: 5px;
+  width: 100px;
+  float: left;
+}
+
+.venue .hotel p {
+  padding-left: 120px;
+}
+
+/* Warm-up party */
+
+.party {
+  padding: 40px;
+  text-align: center;
+}
+
+.party img {
+  margin-top: 20px;
+}
+
+.party .invited, .dev {
+  text-align: left;
+}
+
+/* Sponsors */
+
+.sponsors {
+  padding: 40px;
+  padding-bottom: 80px;
+  text-align: center;
+}
+
+.sponsors img {
+  border: none;
+}
+
+.sponsors a {
+  color: rgb(156, 170, 175);
+  font-weight: normal
+}
+
+.sponsors h1 {
+  margin-bottom: 10px;
+}
+
+.sponsors h2 {
+  margin-top: 40px;
+  margin-bottom: 30px;
+}
+
+@media (max-width: 767px) {
+  .sponsors h2 {
+    margin-top: 60px;
+  }
+}
+
+.sponsors .silver img {
+  max-width: 150px;
+  max-height: 100px;
+}
+
+.sponsors img.shadow{
+  -moz-box-shadow: 0 0 2px 1px #888;
+  -webkit-box-shadow: 0 0 2px 1px#888;
+  box-shadow: 0 0 2px 1px #888;
+}
+
+/* Organisation */
+
+.organisation {
+  background: url(../img/navy_blue.png) repeat top left;
+  padding: 20px 40px;
+}
+
+.organisation .members {
+  display: table;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.organisation .member {
+  float: left;
+}
+
+.organisation img {
+  border: 1px solid rgb(109, 113, 114);
+  width: 75px;
+  margin: 10px;
+}
