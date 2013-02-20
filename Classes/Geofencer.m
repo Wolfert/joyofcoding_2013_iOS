@@ -10,8 +10,6 @@
 
 @implementation Geofencer
 
-
-
 + (id) sharedFencer
 {
     DEFINE_SHARED_INSTANCE_USING_BLOCK(^{
@@ -23,13 +21,11 @@
 {
     NSLog(@" - Geofencer init " );
     if (self) {
-        // Override point for customization after application launch.
-        // Create location manager
-        regionManager = [[CLLocationManager alloc] init];
+        _regionManager = [[CLLocationManager alloc] init];
 
-        regionManager.delegate = self;
-        isMonitoring = false;
-        isCheckIn = -1;
+        _regionManager.delegate = self;
+        _isMonitoring = false;
+        _isCheckIn = -1;
     }
     return self;
 }
@@ -38,7 +34,7 @@
 {
     if (!_locations)
         _locations = [[NSMutableArray alloc] initWithObjects:
-                      [[Location alloc] initWithIdentifier:@"Joy of Coding" longitude:4.494342 latitude:51.897648 andRadius:60.0], nil];
+                          [[Location alloc] initWithIdentifier:@"Joy of Coding" longitude:4.494342 latitude:51.897648 andRadius:100.0], nil];
     return _locations;
 }
 
@@ -47,37 +43,35 @@
 
 - (void) startMonitoring
 {
-    [regionManager startUpdatingLocation];
-    [regionManager startMonitoringSignificantLocationChanges];
-
-    if (!isMonitoring) {
+    if (!_isMonitoring) {
         NSLog(@" - Starting Region Monitoring ");
         for (int i = 0; i < [self.locations count]; i++) {
-            [regionManager startMonitoringForRegion:[[self.locations objectAtIndex:i] region]];
-            [regionManager setDesiredAccuracy:kCLLocationAccuracyBest];
+            [_regionManager startMonitoringForRegion:[[self.locations objectAtIndex:i] region]];
+            [_regionManager setDesiredAccuracy:kCLLocationAccuracyBest];
         }
-        [regionManager setDesiredAccuracy:kCLLocationAccuracyBest];
-        isMonitoring = YES;
+        [_regionManager setDesiredAccuracy:kCLLocationAccuracyBest];
+        _isMonitoring = YES;
     }
 }
 
 - (void) stopMonitoring
 {
-    if (isMonitoring) {
+    if (_isMonitoring) {
+        if (_isCheckIn == 1) {
+            [self exitedRegion:0];
+        }
         NSLog(@" - Stopping Region Monitoring ");
         for (int i = 0; i < [_locations count]; i++) {
-            [regionManager stopMonitoringForRegion:[[self.locations objectAtIndex:i] region]];
+            [_regionManager stopMonitoringForRegion:[[self.locations objectAtIndex:i] region]];
         }
-        isMonitoring = NO;
+        _isMonitoring = NO;
     }
-    [regionManager stopUpdatingLocation];
-    [regionManager stopMonitoringSignificantLocationChanges];
 }
 
 - (void)locationManager:(CLLocationManager *)manager didEnterRegion:(CLRegion *)region
 {
     NSLog(@" - Entered Region");
-    NSLog(@" - Entered Region %@ \n Location %.06f %.06f",[region description], regionManager.location.coordinate.latitude,regionManager.location.coordinate.longitude );
+    NSLog(@" - Entered Region %@ \n Location %.06f %.06f",[region description], _regionManager.location.coordinate.latitude,_regionManager.location.coordinate.longitude );
     
     [self enteredRegion:0];
 }
@@ -85,16 +79,16 @@
 - (void)locationManager:(CLLocationManager *)manager didExitRegion:(CLRegion *)region
 {
     NSLog(@" - Exited Region viewController.status.text");
-    NSLog(@" - Exited Region %@ \n Location %.06f %.06f",[region description], regionManager.location.coordinate.latitude,regionManager.location.coordinate.longitude );
+    NSLog(@" - Exited Region %@ \n Location %.06f %.06f",[region description], _regionManager.location.coordinate.latitude,_regionManager.location.coordinate.longitude );
     
     [self exitedRegion:0];
 }
 
 - (void)locationManager:(CLLocationManager *)manager didStartMonitoringForRegion:(CLRegion *)region
 {
-    NSLog(@" - Region Monitoring Started\n%@ \n Location %.06f %.06f",[region description], regionManager.location.coordinate.latitude,regionManager.location.coordinate.longitude );
+    NSLog(@" - Region Monitoring Started\n%@ \n Location %.06f %.06f",[region description], _regionManager.location.coordinate.latitude,_regionManager.location.coordinate.longitude );
     
-    if ([region containsCoordinate:regionManager.location.coordinate]) {
+    if ([region containsCoordinate:_regionManager.location.coordinate]) {
         NSLog(@" - Region Monitored Entered Region");
         [self enteredRegion:0];
     } else {
@@ -125,14 +119,15 @@
     if (!username || [username isEqualToString:@""])
         return;
     
-    [[UIApplication sharedApplication] cancelAllLocalNotifications];
-    [[Notifier sharedNotifier] notifyMessage:[NSString stringWithFormat:@"You just entered %@", [[self.locations objectAtIndex:regionIndex] identifier]]];
     
     
     NSURL *url = [ NSURL URLWithString:kNetworkCheckInURL([username stringByReplacingOccurrencesOfString:@"@" withString:@""])];
     
     NSURLRequest *request = [ NSURLRequest requestWithURL: url ];
-    if (isCheckIn != 1) {
+    if (_isCheckIn != 1) {
+        [[UIApplication sharedApplication] cancelAllLocalNotifications];
+        [[Notifier sharedNotifier] notifyMessage:[NSString stringWithFormat:@"You just entered %@", [[self.locations objectAtIndex:regionIndex] identifier]]];
+        
         // create the connection with the request
         // and start loading the data
         NSURLConnection *theConnection=[[NSURLConnection alloc] initWithRequest:request delegate:self];
@@ -144,7 +139,7 @@
             // Inform the user that the connection failed.
             [[Notifier sharedNotifier] notifyMessage:[NSString stringWithFormat:@"Connection to server failed!"]];
         }
-        isCheckIn = 1;
+        _isCheckIn = 1;
     }
 }
 
@@ -154,15 +149,15 @@
     if (!username || [username isEqualToString:@""])
         return;
     
-    [[UIApplication sharedApplication] cancelAllLocalNotifications];
-    
-    [[Notifier sharedNotifier] notifyMessage:[NSString stringWithFormat:@"You just left %@", [[self.locations objectAtIndex:regionIndex] identifier]]];
 
     NSURL *url = [ NSURL URLWithString:kNetworkCheckOutURL([username stringByReplacingOccurrencesOfString:@"@" withString:@""])];
     
     NSURLRequest *request = [ NSURLRequest requestWithURL: url ];
     
-    if (isCheckIn != 0) {
+    if (_isCheckIn != 0) {
+        [[UIApplication sharedApplication] cancelAllLocalNotifications];
+        [[Notifier sharedNotifier] notifyMessage:[NSString stringWithFormat:@"You just left %@", [[self.locations objectAtIndex:regionIndex] identifier]]];
+        
         // create the connection with the request
         // and start loading the data
         NSURLConnection *theConnection=[[NSURLConnection alloc] initWithRequest:request delegate:self];
@@ -175,7 +170,7 @@
             [[Notifier sharedNotifier] notifyMessage:[NSString stringWithFormat:@"Connection to server failed!"]];
 
         }
-        isCheckIn = 0;
+        _isCheckIn = 0;
     }
 }
 

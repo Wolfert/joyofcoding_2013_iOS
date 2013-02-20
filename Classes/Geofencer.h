@@ -10,9 +10,9 @@
 #import <CoreLocation/CoreLocation.h>
 
 @interface Geofencer : NSObject <CLLocationManagerDelegate> {
-    CLLocationManager *regionManager;
-    BOOL isMonitoring;
-    int isCheckIn;
+    CLLocationManager * _regionManager;
+    BOOL _isMonitoring;
+    int  _isCheckIn;
 }
 
 +(id) sharedFencer;

@@ -9,9 +9,9 @@
 #import <UIKit/UIKit.h>
 #import "Event.h"
 
-@interface EventDetailViewController : UIViewController <UIWebViewDelegate>{
+@interface EventDetailViewController : UIViewController <UIWebViewDelegate>
 
-}
+- (void) removeShadowFromWebView;
 
 @property(nonatomic, retain) Event * event;
 @property(nonatomic, retain) IBOutlet UIWebView * content;

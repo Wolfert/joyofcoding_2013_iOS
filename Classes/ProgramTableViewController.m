@@ -6,26 +6,9 @@
 //
 //
 
-#import "MenuViewController.h"
+#import "ProgramTableViewController.h"
 
-#define kInputStateUser 1
-#define kInputStateMode 2
-#define kInputStateModeManual 3
-
-@interface MenuViewController () {
-}
-
-@property (nonatomic, strong) UITextField * userInputField;
-@property (nonatomic, strong) NSString * user;
-@property (nonatomic, strong) UITableViewCell * activeCheckInMode;
-@property (nonatomic) int state;
-
-- (BOOL) saveUser:(NSString*)user;
-- (BOOL) isValidEmail: (NSString*) email;
-@end
-
-
-@implementation MenuViewController
+@implementation ProgramTableViewController
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -79,7 +62,7 @@
     if (indexPath.section == 0){
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"inputCell"];
         _userInputField = [[UITextField alloc] initWithFrame:CGRectMake(10, 10, 280, 24)];
-        _userInputField.placeholder = @"Your twitter handle";
+        _userInputField.placeholder = @"Your @twitter handle";
         _userInputField.delegate = self;
         _userInputField.autocorrectionType = UITextAutocorrectionTypeNo;
         _userInputField.autocapitalizationType = UITextAutocapitalizationTypeNone;
@@ -107,6 +90,8 @@
 
 - (UIView *) tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
+    
+
     UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.bounds.size.width, 30)];
     
     UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(15, 10, tableView.bounds.size.width - 10, 18)];
@@ -117,11 +102,26 @@
     label.shadowOffset = CGSizeMake(0, 1);
     label.shadowColor = [UIColor lightGrayColor];
     [headerView addSubview:label];
+    
+    // Add info button for check in
+    if (section == 0) {
+        UIButton* infoButton = [UIButton buttonWithType:UIButtonTypeInfoDark];
+        [infoButton setFrame:CGRectMake(290, 13, 15, 15)];
+        [infoButton addTarget:self action:@selector(openWebLocation) forControlEvents:UIControlEventTouchUpInside];
+        [infoButton setAutoresizingMask:UIViewAutoresizingFlexibleLeftMargin];
+        [headerView addSubview: infoButton];
+    }
+    
     return headerView;
 }
 
+
+- (void) openWebLocation {
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://joyofcoding.lunatech.com"]];
+}
+
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return indexPath.section ? ((ProgramCell*)[_eventCells objectAtIndex:indexPath.row]).hoogte : 44;
+    return indexPath.section ? ((ProgramCell*)[_eventCells objectAtIndex:indexPath.row]).height : 44;
 }
 
 
@@ -131,10 +131,6 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.section == 1) {
-//        EventDetailViewController * detailView = [[EventDetailViewController alloc]init];
-//        [self.navigationController pushViewController:detailView animated:YES];
-//        
-        
         UIStoryboard *storyboard = [UIStoryboard storyboardWithName:@"MainStoryboard" bundle:[NSBundle bundleForClass:[self class]]];
         EventDetailViewController * detailView = [storyboard instantiateViewControllerWithIdentifier:@"DetailViewController"];
         detailView.event = [_events objectAtIndex:indexPath.row];
@@ -144,7 +140,7 @@
 }
 
 
-#pragma mark - Keyboard delegat
+#pragma mark - Keyboard delegate
 
 -(BOOL)textFieldShouldReturn:(UITextField *)textField {
     [_userInputField resignFirstResponder];
@@ -158,14 +154,13 @@
 
 - (BOOL) saveUser:(NSString*)user
 {
-    if (!user || [user isEqualToString:@""]) {
-        if ([[NSUserDefaults standardUserDefaults] objectForKey:@"email_preferences"]) {
-            _userInputField.text = [[NSUserDefaults standardUserDefaults] objectForKey:@"email_preferences"];
-            return YES;
-        }
+    if (!user || ![self isValidTwitterHandle:user]) {
+        _userInputField.text = @"";
+        [[Geofencer sharedFencer] stopMonitoring];
         [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"email_preferences"];
         [[NSUserDefaults standardUserDefaults] synchronize];
-        return NO;
+        
+        return YES;
     } else {
         [[NSUserDefaults standardUserDefaults] setObject:user forKey:@"email_preferences"];
         [[NSUserDefaults standardUserDefaults] synchronize];
@@ -178,10 +173,10 @@
     }
 }
 
-- (BOOL) isValidEmail: (NSString*) email
+- (BOOL) isValidTwitterHandle: (NSString*) handle
 {
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", @"[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,4}"];
-    return [predicate evaluateWithObject: email];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", @"@([A-Za-z0-9_]+)"];
+    return [predicate evaluateWithObject: handle];
 }
 
 @end

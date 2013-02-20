@@ -10,4 +10,5 @@
 
 @interface TableViewFooter : UIView
 
+- (void) openWebLocation;
 @end

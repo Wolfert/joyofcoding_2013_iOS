@@ -7,9 +7,6 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <CoreLocation/CoreLocation.h>
-#import "MenuViewController.h"
-
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate> 
 

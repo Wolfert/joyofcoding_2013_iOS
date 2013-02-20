@@ -18,6 +18,6 @@
 @property(nonatomic, retain) NSMutableArray * eventCellArray;
 
 - (void) parse;
-- (UIColor*) getColor:(int)color;
 - (ProgramCell*) createCell:(Event*)event;
+
 @end
