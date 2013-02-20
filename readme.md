@@ -7,9 +7,13 @@ This application provides the session schedule and a geo-fence 'check in' functi
 Fill in your Twitter handle in the 'check in'-field to allow the application to monitor your location. You will be 
 automatically checked in when you arrive at the conference venue. A projector will be used during the conference to display Twitter avatars of those checked in at the conference at the given time.
 
+<img src="./screenshot.png" height="293" width="160">
+
+
+
 **About:**
 
-This app was build in 6 hours on top of an existing Geofence application, Lunatech's [check-in](https://github.com/lunatech-labs/lunatech-check-in).
+This app was built in 6 hours on top of an existing Geofence application, Lunatech's [check-in](https://github.com/lunatech-labs/lunatech-check-in).
 
 Checked in users are listed at joyofcoding.lunatech.com.
 
